@@ -39,6 +39,35 @@ public class Fields
     public int Price { get; set; }
 }
 
+// Attribute class to convert dates
+public class DateConverter : JsonConverter<DateTime>
+{
+    public override DateTime ReadJson(JsonReader reader, Type objectType, DateTime existingValue, bool hasExistingValue, JsonSerializer serializer)
+    {
+        var value = reader.Value?.ToString();
+
+        if (!string.IsNullOrEmpty(value))
+        {
+            return DateTime.Parse(value, null, System.Globalization.DateTimeStyles.RoundtripKind);
+        }
+
+        return default;
+    }
+
+    public override void WriteJson(JsonWriter writer, DateTime value, JsonSerializer serializer)
+    {
+        writer.WriteValue(value.ToString("yyyy-MM-dd"));
+    }
+}
+
+// Using the attribute class to convert a date property
+public class Model
+{
+    [JsonConverter(typeof(DateConverter))]
+    [JsonRequired(Required = Required.Always)]
+    public DateTime Birthday { get; set; }
+}
+
 public class Program
 {
 	public static void Main()

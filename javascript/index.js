@@ -1,18 +1,10 @@
-const data = {
-    name: "John Doe",
-    age: 30,
-    email: "john.doe@example.com",
-    isSubscribed: true,
-    roles: ["Admin", "User"]
-};
+// Serialized JSON string from the above example
+const serializedJSON = "{\"total\":4,\"skip\":0,\"limit\":100,\"items\":[{\"fields\":{\"productName\":\"Whisk Beater\",\"price\":22}},{\"fields\":{\"productName\":\"SoSo Wall Clock\",\"price\":120}},{\"fields\":{\"productName\":\"Hudson Wall Cup\",\"price\":11}}]}";
 
-// Serialization
-const jsonString = JSON.stringify(data, null, 2);
-console.log("Serialized JSON:");
-console.log(jsonString);
+// Deserialize JSON into a JavaScript object
+const deserializedJSON = JSON.parse(serializedJSON);
 
-// Deserialization
-const parsedData = JSON.parse(jsonString);
-console.log("\nDeserialized Object:");
-console.log(parsedData);
-console.log(`\nName: ${parsedData.name}, Age: ${parsedData.age}`);
+// Use the deserialized JSON data
+console.log('Total number of products: '+ deserializedJSON.total);
+console.log('Number of product items: '+ deserializedJSON.items.length);
+console.log('First product name: '+ deserializedJSON.items[0].fields.productName);

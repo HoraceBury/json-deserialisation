@@ -1,20 +1,18 @@
 import json
 
-data = {
-    "name": "John Doe",
-    "age": 30,
-    "email": "john.doe@example.com",
-    "isSubscribed": True,
-    "roles": ["Admin", "User"]
-}
+# Serialized JSON string from the above example
+json_content = "{\"total\":4,\"skip\":0,\"limit\":100,\"items\":[{\"fields\":{\"productName\":\"Whisk Beater\",\"price\":22}},{\"fields\":{\"productName\":\"SoSo Wall Clock\",\"price\":120}},{\"fields\":{\"productName\":\"Hudson Wall Cup\",\"price\":11}}]}"
 
-# Serialization
-json_string = json.dumps(data, indent=4)
-print("Serialized JSON:")
+# deserialize JSON into a Python object (dict)
+product_data = json.loads(json_content)
+
+# Use the deserialized JSON
+print("Total number of products: " + str(product_data["total"]))
+print("Number of product items: " + str(len(product_data["items"])))
+print("First product name: " + product_data["items"][0]["fields"]["productName"])
+
+# product information held as a Python object
+json_string = json.dumps(product_data)
+
+# dump the json to the console
 print(json_string)
-
-# Deserialization
-parsed_data = json.loads(json_string)
-print("\nDeserialized Dictionary:")
-print(parsed_data)
-print(f"\nName: {parsed_data['name']}, Age: {parsed_data['age']}")

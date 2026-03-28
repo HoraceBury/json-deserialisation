@@ -64,7 +64,7 @@ public class DateConverter : JsonConverter<DateTime>
 public class Model
 {
     [JsonConverter(typeof(DateConverter))]
-    [JsonRequired(Required = Required.Always)]
+    [JsonProperty(Required = Required.Always)]
     public DateTime Birthday { get; set; }
 }
 

@@ -21,9 +21,10 @@ print(json_string)
 # Deserialize JSON with a hook
 def date_hook(obj):
     if "birthday" in obj:
-        obj["birthday"] = datetime.fromisoformat(
-            obj["birthday"]
-        )
+        try:
+            obj["birthday"] = datetime.fromisoformat(obj["birthday"])
+        except Exception:
+            raise json.JSONDecodeError("Invalid birthday: not a valid ISO date", obj["birthday"], 0)
     return obj
 
 json_content = '{"birthday": "2026-06-27"}'

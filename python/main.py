@@ -24,7 +24,7 @@ def date_hook(obj):
         try:
             obj["birthday"] = datetime.fromisoformat(obj["birthday"])
         except Exception:
-            raise json.JSONDecodeError("Invalid birthday: not a valid ISO date", obj["birthday"], 0)
+            raise ValueError(f"Invalid birthday: {obj['birthday']!r} is not a valid ISO date")
     return obj
 
 json_content = '{"birthday": "2026-06-27"}'
